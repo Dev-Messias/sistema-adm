@@ -1,13 +1,26 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import logo from '../../assets/logo.png';
 
 import { Link } from 'react-router-dom';
 
+import { AuthContext } from '../../contexts/auth';
+
 function SignUp(){
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const { signUp, loadingAuth } = useContext(AuthContext);
+
+    async function handleSubmit(e){
+        //não atualizar a pagina
+        e.preventDefault();
+
+        if(name !== '' && email !== '' && password !== ''){
+            await signUp(email, password, name);
+        }
+    }
 
     return(
         <div className='container-center' >
@@ -15,12 +28,12 @@ function SignUp(){
                 <div className='login-area' >
                     <img src={logo} alt="Logo do sistema" />
                 </div>
-                <form>
+                <form onSubmit={handleSubmit} >
 
                     <h1>Nova Conta</h1>
                     <input 
                         type="text" 
-                        placeholder='email@email.com' 
+                        placeholder='Nome' 
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
@@ -33,13 +46,15 @@ function SignUp(){
                     />
 
                     <input 
-                        type="text" 
+                        type="password" 
                         placeholder='******' 
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
 
-                    <button>Cadastrar</button>
+                    <button type='submit' >
+                        {loadingAuth ? 'Carregando...' : 'Cadastrar'}
+                    </button>
                 </form>
 
                 <Link to="/" > Já possui uma conta? Faça login </Link>

@@ -1,0 +1,88 @@
+import {useState, createContext, useEffect} from 'react';
+
+import {auth, db} from '../services/firebaseConnection';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+
+import {useNavigate} from 'react-router-dom';
+
+import { toast } from 'react-toastify'
+
+//iniciando como objeto vazio
+export const AuthContext = createContext({})
+
+
+//provedor de context
+function AuthProvider({children}){
+    //informações do usuario
+    const [user, setUser] = useState(null);
+
+    const [loadingAuth, setLoadingAuth] = useState(false);
+
+    const navigate = useNavigate();
+
+    //login
+function signIn(email, password){
+  console.log(email);
+  alert("Logado com sucesso");
+}
+
+//cadastrar novo user
+async function signUp(email, password, name){
+  setLoadingAuth(true);
+
+  await createUserWithEmailAndPassword(auth, email, password)
+  .then(async (value) =>{
+    let uid = value.user.uid
+
+    await setDoc(doc(db, "users", uid), {
+      nome: name,
+      avatarUrl: null
+    })
+    .then( () => {
+      
+      let data = {
+        uid: uid,
+        nome: name,
+        email: value.user.email,
+        avatarUrl: null
+      };
+
+      setUser(data)
+      storageUser(data);
+      setLoadingAuth(false);
+      toast.success(`Olá ${name}, seja bem-vindo ao sistema`);
+      navigate("/dashboard")
+    } )
+
+
+  })
+  .catch((error)=>{
+    console.log(error);
+    setLoadingAuth(false);
+  })
+}
+
+
+    function storageUser(data){
+      localStorage.setItem("@ticketsPRO", JSON.stringify(data))
+    }
+
+    return(
+        <AuthContext.Provider 
+          value={{
+            singned: !!user,//convertendo em boolean
+            user,
+            signIn,
+            signUp,
+            loadingAuth
+          }} 
+        >
+
+            {children}
+
+        </AuthContext.Provider>
+    )
+}
+
+export default AuthProvider;
