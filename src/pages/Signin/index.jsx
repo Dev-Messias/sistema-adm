@@ -6,18 +6,21 @@ import logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
 
 import {AuthContext} from '../../contexts/auth';
+import {toast} from 'react-toastify'
 
 function Signin(){
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const { signIn } = useContext(AuthContext);
+    const { signIn, loadingAuth } = useContext(AuthContext);
 
     function handleSignIn(e){
         e.preventDefault();
 
         if(email !== '' && password !== ''){
             signIn(email, password);
+        }else{
+            toast.warning("Preencha todos os campos!")
         }
     }
 
@@ -44,7 +47,9 @@ function Signin(){
                         onChange={(e) => setPassword(e.target.value)}
                     />
 
-                    <button>Acessar</button>
+                    <button type='submit' >
+                        {loadingAuth ? "Carregando..." : "Acessar"}
+                    </button>
                 </form>
 
                 <Link to="/register" > Criar uma conta </Link>
