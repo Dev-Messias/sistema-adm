@@ -125,7 +125,9 @@ async function signUp(email, password, name){
             signUp,
             logout,
             loadingAuth,
-            loading
+            loading,
+            storageUser,
+            setUser
           }} 
         >
 
