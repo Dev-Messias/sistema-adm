@@ -10,7 +10,7 @@ function RoutesApp(){
     return(
         <Routes>
             {/** Rota Publica */}
-            <Route path='/' element={ <Signin/> } />
+            <Route path='/' element={<Signin/> } />
             <Route path='/register' element={ <SignUp/> } />
 
             {/** Rota Privada */}
