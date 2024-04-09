@@ -1,8 +1,16 @@
-# React + Vite
+# Sistema ADM
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="start" >
+  <img  src="https://github.com/Dev-Messias/sistema-adm/blob/main/src/assets/img1.png" >
+</p>
 
-Currently, two official plugins are available:
+## Descrição :
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Sistema desenvolvido no curso do sujeito programado, para registrar chamados, utilizando ReactJS, Firebase e Context API.
+
+## Tecnologias Utilizadas:
+
+![tecnologia](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) 
+![tecnologia](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+
+
