@@ -135,7 +135,7 @@ function Dashboard(){
                                         <th scope='col' >Cliente</th>
                                         <th scope='col' >Assunto</th>
                                         <th scope='col' >Status</th>
-                                        <th scope='col' >Cadastrado em</th>
+                                        <th scope='col' >Data Cadastro</th>
                                         <th scope='col' >#</th>
                                     </tr>
                                 </thead> 
@@ -154,9 +154,9 @@ function Dashboard(){
                                                     <button className='action' style={{backgroundColor: '#3583f6'}} >
                                                         <FiSearch color='#FFF' size={17} />
                                                     </button>
-                                                    <button className='action' style={{backgroundColor: '#f6a935'}}>
+                                                    <Link to={`/new/${item.id}`} className='action' style={{backgroundColor: '#f6a935'}}>
                                                         <FiEdit2 color='#FFF' size={17}  />
-                                                    </button>
+                                                    </Link>
                                                 </td>
                                             </tr>
                                         )
