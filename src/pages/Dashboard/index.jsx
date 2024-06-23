@@ -3,11 +3,13 @@ import { AuthContext } from '../../contexts/auth';
 import Header from '../../components/Header';
 import Title from '../../components/Title';
 import {FiPlus, FiMessageSquare, FiSearch, FiEdit2} from 'react-icons/fi';
+import { RiDeleteBin5Line } from "react-icons/ri";
 
 import {Link} from 'react-router-dom';
 
-import {collection, getDocs, orderBy, limit, startAfter, query} from 'firebase/firestore';
+import {collection, getDocs, orderBy, limit, startAfter, query, doc, deleteDoc} from 'firebase/firestore';
 import {db} from '../../services/firebaseConnection';
+import {toast} from 'react-toastify';
 
 import {format} from 'date-fns';
 
@@ -91,6 +93,14 @@ function Dashboard(){
        await updateState(querySnapshot);
     }
 
+
+    async function handleDelete(item){
+        const docRef = doc(db, "chamados", item.id);
+        await deleteDoc(docRef);
+        setChamados(chamados.filter(chamado => chamado.id !== item.id));
+        toast.success("Item deletado com sucesso.")
+    }
+
     if(loading){
         return(
             <div>
@@ -167,6 +177,10 @@ function Dashboard(){
                                                     <Link to={`/new/${item.id}`} className='action' style={{backgroundColor: '#f6a935'}}>
                                                         <FiEdit2 color='#FFF' size={17}  />
                                                     </Link>
+                                                    <button className='action' style={{backgroundColor: '#dc2626'}} onClick={() => handleDelete(item)}  >
+                                                        <RiDeleteBin5Line color='#FFF' size={17} />
+                                                       
+                                                    </button>
                                                 </td>
                                             </tr>
                                         )
